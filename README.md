@@ -42,7 +42,7 @@ Triggered a local deadlock by running `sync_up` and `sync_down` simultaneously. 
 
 **Screenshot: Frozen terminals**
 
-![Checkpoint 2](screenshot/pic2.png)
+![Checkpoint 2](screenshot/pic3.png)
 
 **Explanation:**  
 `sync_up` held the Alpha lock while waiting for Beta, and `sync_down` held the Beta lock while waiting for Alpha. This caused a classic circular wait.
@@ -55,7 +55,7 @@ Simulated a distributed deadlock between two users on the same server using cros
 
 **Screenshot: Multiplayer deadlock**
 
-![Checkpoint 3](screenshot/pic3.png)
+![Checkpoint 3](screenshot/pic4.png)
 
 **Explanation:**  
 Both users froze while trying to lock each other’s vaults, demonstrating a cross-user deadlock scenario.
@@ -68,7 +68,7 @@ Implemented a strict global order: Alpha’s lock must always be acquired before
 
 **Screenshot: Deadlock prevented with global ordering**
 
-![Checkpoint 4](screenshot/pic4.png)
+![Checkpoint 4](screenshot/pic5.png)
 
 **Explanation:**  
 Terminals show sequential execution. Player A acquires Alpha first, then Beta. Player B waits for Alpha, ensuring no deadlock occurs.
@@ -81,7 +81,7 @@ Tested timeout strategy with `sync_timeout` using `flock -w 5`. If a lock is una
 
 **Screenshot: Timeout handling**
 
-![Checkpoint 5](screenshot/pic5.png)
+![Checkpoint 5](screenshot/pic6.png)
 
 **Explanation:**  
 Terminal shows that `sync_timeout` waited 5 seconds for Alpha lock, failed gracefully, and prevented freezing.
@@ -94,24 +94,10 @@ Unmounted the virtual drives and detached loopback devices safely using the `tea
 
 **Screenshot: Clean df -h output after teardown**
 
-![Checkpoint 6](screenshot/pic6.png)
+![Checkpoint 6](screenshot/pic7.png)
 
 **Explanation:**  
 The loopback devices are no longer mounted. Proper teardown prevents file system corruption and frees kernel resources.
-
----
-
-## Additional Notes
-
-- DMZ directories (`public_dr_alpha` and `public_dr_beta`) and lock files were used to simulate cross-user synchronization.  
-- All screenshots (`pic1.png` to `pic7.png`) are located in the `screenshot/` folder.  
-
-**Screenshot of final lab state**  
-
-![Checkpoint 7](screenshot/pic7.png)
-
-**Explanation:**  
-Shows the final organized lab folder structure including virtual drive images, symlinks, DMZ directories, and screenshot folder.
 
 ---
 
